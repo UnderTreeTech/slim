@@ -80,7 +80,7 @@ func (m *PolyArray) Get(i int32) int32 {
 	i = i & segSizeMask
 	x := float64(i)
 
-	bm := polyBitmap & bitmap.RightMasks[i>>4]
+	bm := polyBitmap & bitmap.Mask[i>>4]
 	polyI := int(rank) + bits.OnesCount64(bm)
 
 	// evalpoly2(poly, x)
@@ -103,7 +103,7 @@ func (m *PolyArray) Get(i int32) int32 {
 	d := m.Residuals[ibit>>6]
 	d = d >> uint(ibit&63)
 
-	return v + int32(d&bitmap.RightMasks[residualWidth])
+	return v + int32(d&bitmap.Mask[residualWidth])
 }
 
 // Len returns number of elements.
